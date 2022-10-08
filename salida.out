@@ -1,0 +1,16 @@
+MOVB,(lista)
+MOVA,(B)
+FSAB
+MOVB,(B)
+CMPA,B
+MOV(aux),A
+MOVA,B
+MOVB,(aux)
+SUBA,B
+CMPA,(res)
+MOV(res),A
+MOVA,(n)
+SUBA,1
+MOV(n),A
+INC(lista)
+CMPA,1

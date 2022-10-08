@@ -1,0 +1,16 @@
+  MOV B,(lista)  
+  MOV A,(B)
+  FSA B          
+  MOV B,(B)
+  CMP A,B           
+  MOV (aux),A    
+  MOV A,B
+  MOV B,(aux)           
+  SUB A,B
+  CMP A,(res)      
+  MOV (res),A            
+  MOV A,(n)      
+  SUB A,1
+  MOV (n),A      
+  INC (lista)    
+  CMP A,1 
