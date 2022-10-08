@@ -1,16 +1,1 @@
-MOVB,(lista)
-MOVA,(B)
-FSAB
-MOVB,(B)
-CMPA,B
-MOV(aux),A
-MOVA,B
-MOVB,(aux)
-SUBA,B
-CMPA,(res)
-MOV(res),A
-MOVA,(n)
-SUBA,1
-MOV(n),A
-INC(lista)
-CMPA,1
+MOV B,(lista)MOV A,(B)MOV B,(B)INC BCMP A,BMOV (aux),AMOV A,BMOV B,(aux)SUB A,BCMP A,(res)MOV (res),AMOV A,(n)SUB A,1MOV (n),AINC (lista)CMP A,1

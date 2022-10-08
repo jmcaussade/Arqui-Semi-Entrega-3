@@ -34,6 +34,12 @@ Rst = ["(Dir)", "(B)"]   ##falta revisar (Dir)
 Cmp = ["A,B", "A, Lit", "B, Lit", "A, (Dir)",   ##falta revisar Lit y (Dir)
 "B, (Dir)", "A, (B)"]
 
+def CleanLine(line):
+    list1 = line.replace("(","")
+    list1 = list1.replace(")","")
+    list1 = list1.split(",")
+    return list1
+
 
 
 entry = open("entrada.txt", "r")
@@ -43,10 +49,28 @@ entrada = entry.readlines()
 lenfile = len(entrada)
 i = 0
 while i <lenfile:
+    RealLine = []
     line = entrada[i].strip()
-    line = entrada[i].replace(" ","")
-    ins = line[0:3]
-    
+    list1 = line.split(" ")
+    x = CleanLine(list1[1])
+    y = len(list1)
+    if len(x) > 1:
+        RealLine.append(list1[0])
+        RealLine.append(x[0]) #
+        RealLine.append(x[1])
+        print(RealLine)
+    else:
+        RealLine.append(list1[0])
+        RealLine.append(x[0])
+        print(RealLine)
+
+
+    #print(x)
+    """ ins = line[0:3]
+    if ins == "MOV":
+        print("MOV linea ",i, " \n")
+        print(line, " \n") """
+    #print(ins)
     salida.write(line)
     #salida.write(entrada[i])
     i+=1

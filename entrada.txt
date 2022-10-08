@@ -1,7 +1,7 @@
   MOV B,(lista)  
-  MOV A,(B)
-  FSA B          
+  MOV A,(B)         
   MOV B,(B)
+  INC B
   CMP A,B           
   MOV (aux),A    
   MOV A,B
