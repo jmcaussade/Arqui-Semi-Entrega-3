@@ -1,4 +1,6 @@
-  MOV B,(lista)  
+  MOV A,B
+  MOV A,1
+  MOV B,(#21)  
   MOV A,(B)         
   MOV B,(B)
   INC B
@@ -14,3 +16,7 @@
   MOV (n),A      
   INC (lista)    
   CMP A,1 
+  OR A,B
+  OR B,A
+  OR A,1
+  OR B,1

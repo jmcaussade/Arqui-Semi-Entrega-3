@@ -1,16 +1,25 @@
-CMP A,0
-MOV (0),A
-MOV (1),B
-MOV A,B
-MOV B,A
-MOV A,(0)
-SUB A,1
-MOV (0),A
-MOV A,B
-ADD A,(1)
-MOV A,B
-CMP B,(#01)
-INC (B)
-MOV B,A
-XOR A,121
-RST (#F2)
+  MOV A,B
+  MOV B,A
+  MOV A,1
+  MOV B,1
+  ADD A,B
+  ADD B,A
+  ADD A,1
+  ADD B,1
+  SUB A,B
+  SUB B,A
+  SUB A,1
+  SUB B,1
+  AND A,B
+  AND B,A
+  AND A,1
+  AND B,1
+  OR A,B
+  OR B,A
+  OR A,1
+  OR B,1
+  XOR A,B
+  XOR B,A
+  XOR A,1
+  XOR B,1
+  
