@@ -40,6 +40,20 @@ def CleanLine(line):
     list1 = list1.split(",")
     return list1
 
+def ToBinary(number):
+    num = bin(number).replace("0b","")
+    print(num)
+    print(type(num))
+    i = 0
+    while len(num) < 8:
+        num = "0" + num
+        i+=1
+    return num
+
+
+
+
+
 def MOV(list, file):  #MOV -> ins basicas
     if len(list) > 2:
         pos1 = list[1].isnumeric()
@@ -51,13 +65,17 @@ def MOV(list, file):  #MOV -> ins basicas
             elif list[1] == "B":
                 file.write(line + "\n")
                 file.write("0000001\n")
-        elif pos2 == True:
+        elif pos2 == True: #con literal
+            num = int(list[2])
+            print(num)
+            print(" type num" , type(num))
+            binary = ToBinary(num)
             if list[1] == "A":
                 file.write(line + "\n")
-                file.write("0000010\n")
+                file.write("0000010" + binary + "\n")
             elif list[1] == "B":
                 file.write(line + "\n")
-                file.write("0000011\n")
+                file.write("0000011" + binary + "\n")
     else:
             pos1 = list[1].isnumeric()
 
@@ -73,12 +91,16 @@ def ADD(list, file):  #ADD -> ins basicas
                 file.write(line + "\n")
                 file.write("0000101\n")
         elif pos2 == True:
+            num = int(list[2])
+            print(num)
+            print(" type num" , type(num))
+            binary = ToBinary(num)
             if list[1] == "A":
                 file.write(line + "\n")
-                file.write("0000110\n")
+                file.write("0000110" + binary + "\n")
             elif list[1] == "B":
                 file.write(line + "\n")
-                file.write("0000111\n")
+                file.write("0000111" + binary +" \n")
     else:
             pos1 = list[1].isnumeric()
 
@@ -94,12 +116,16 @@ def SUB(list, file):  #SUB -> ins basicas
                 file.write(line + "\n")
                 file.write("0001001\n")
         elif pos2 == True:
+            num = int(list[2])
+            print(num)
+            print(" type num" , type(num))
+            binary = ToBinary(num)
             if list[1] == "A":
                 file.write(line + "\n")
-                file.write("0001010\n")
+                file.write("0001010" + binary + "\n")
             elif list[1] == "B":
                 file.write(line + "\n")
-                file.write("0001011\n")
+                file.write("0001011" + binary + "\n")
     else:
             pos1 = list[1].isnumeric()
 
@@ -166,13 +192,13 @@ def XOR(list, file):  #XOR -> ins basicas
     else:
             pos1 = list[1].isnumeric()   
 
-entry = open("entrada2.txt", "r")
+entry = open("entrada3.txt", "r")
 salida = open("salida.out", "w")
 entrada = entry.readlines()
 
 lenfile = len(entrada)
 i = 0
-while i <lenfile -1:
+while i <lenfile:
     RealLine = []
     line = entrada[i].strip() #linea de entrada
     list1 = line.split(" ")
@@ -211,10 +237,7 @@ while i <lenfile -1:
         pass   
        
 
-    
-    #s = line +"\n"
-    #salida.write(line + "\n")
-    #salida.write(entrada[i])
+
     i+=1
 
 

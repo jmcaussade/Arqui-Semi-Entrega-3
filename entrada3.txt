@@ -1,0 +1,4 @@
+MOV A,7
+MOV B,5
+ADD B,4
+SUB A,3
