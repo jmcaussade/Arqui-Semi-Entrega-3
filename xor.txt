@@ -1,0 +1,8 @@
+XOR A,B
+XOR B,A
+XOR A,4
+XOR B,5
+XOR A,(4)
+XOR B,(5)
+XOR A,(B)
+XOR (4)
