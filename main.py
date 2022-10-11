@@ -381,49 +381,116 @@ def XOR(list, file):
         binary = ToBinary(num)
         file.write(line + "\n")
         file.write("1000010" + binary + "\n")
-  
 
-def NOT(list, file):   #NOT -> ins basicas
-    if list[1] == "A" and list[2] == "A":
-        file.write(line + "\n")
-        file.write("001010000000000\n")
-    elif list[1] == "A" and list[2] == "B":
-        file.write(line + "\n")
-        file.write("001010100000000\n")
-    elif list[1] == "B" and list[2] == "A":
-        file.write(line + "\n")
-        file.write("001011000000000\n")
-    else:
-        file.write(line + "\n")
-        file.write("001011100000000\n")
 
-def SHL(list, file):   #SHL -> ins basicas
-    if list[1] == "A" and list[2] == "A":
-        file.write(line + "\n")
-        file.write("001110000000000\n")
-    elif list[1] == "A" and list[2] == "B":
-        file.write(line + "\n")
-        file.write("001110100000000\n")
-    elif list[1] == "B" and list[2] == "A":
-        file.write(line + "\n")
-        file.write("001111000000000\n")
-    else:
-        file.write(line + "\n")
-        file.write("001111100000000\n")
+def NOT(list, file):   
+    linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
+    if len(linea) > 1: #Ej NOT (Dir),A
+        if "(" in linea[0]: # #EJ: ADD A,(Dir)
+            linea[0] = linea[0].replace("(","")
+            linea[0] = linea[0].replace(")","")
+            pos1 = linea[0].isnumeric()
+            if pos1 == True:
+                num = int(linea[0])
+                binary = ToBinary(num)
+                if linea[1] == "A": #  (Dir),A
+                    file.write(line + "\n")
+                    file.write("0111100" + binary + "\n")
+                if linea[1] == "B": # ADD B,(Dir)
+                    file.write(line + "\n")
+                    file.write("0111101" + binary + "\n")
 
-def SHR(list, file):   #SHL -> ins basicas
-    if list[1] == "A" and list[2] == "A":
+        else: #ADD -> ins basicas
+            if linea[0] == "A" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("001010000000000\n")
+            elif linea[0] == "A" and linea[1] == "B":
+                file.write(line + "\n")
+                file.write("001010100000000\n")
+            elif linea[0] == "B" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("001011000000000\n")
+            else:
+                file.write(line + "\n")
+                file.write("001011100000000\n")
+
+    else: #Ej NOT (Dir)
         file.write(line + "\n")
-        file.write("001110000000000\n")
-    elif list[1] == "A" and list[2] == "B":
+        file.write("0111110000000" + "\n")
+
+def SHL(list, file):   
+    linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
+    if len(linea) > 1: #Ej NOT (Dir),A
+        if "(" in linea[0]: # #EJ: ADD A,(Dir)
+            linea[0] = linea[0].replace("(","")
+            linea[0] = linea[0].replace(")","")
+            pos1 = linea[0].isnumeric()
+            if pos1 == True:
+                num = int(linea[0])
+                binary = ToBinary(num)
+                if linea[1] == "A": #  (Dir),A
+                    file.write(line + "\n")
+                    file.write("1000011" + binary + "\n")
+                if linea[1] == "B": # ADD B,(Dir)
+                    file.write(line + "\n")
+                    file.write("1000100" + binary + "\n")
+
+        else: #ADD -> ins basicas
+            if linea[0] == "A" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("001110000000000\n")
+            elif linea[0] == "A" and linea[1] == "B":
+                file.write(line + "\n")
+                file.write("001110100000000\n")
+            elif linea[0] == "B" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("001111000000000\n")
+            else:
+                file.write(line + "\n")
+                file.write("001111100000000\n")
+
+    else: #Ej NOT (Dir)
         file.write(line + "\n")
-        file.write("001110100000000\n")
-    elif list[1] == "B" and list[2] == "A":
+        file.write("100010100000000" + "\n")
+
+def SHR(list, file):   
+    linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
+    if len(linea) > 1: #Ej NOT (Dir),A
+        if "(" in linea[0]: # #EJ: ADD A,(Dir)
+            linea[0] = linea[0].replace("(","")
+            linea[0] = linea[0].replace(")","")
+            pos1 = linea[0].isnumeric()
+            if pos1 == True:
+                num = int(linea[0])
+                binary = ToBinary(num)
+                if linea[1] == "A": #  (Dir),A
+                    file.write(line + "\n")
+                    file.write("1000110" + binary + "\n")
+                if linea[1] == "B": # ADD B,(Dir)
+                    file.write(line + "\n")
+                    file.write("1000111" + binary + "\n")
+
+        else: #ADD -> ins basicas
+            if linea[0] == "A" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("010000000000000\n")
+            elif linea[0] == "A" and linea[1] == "B":
+                file.write(line + "\n")
+                file.write("010000100000000\n")
+            elif linea[0] == "B" and linea[1] == "A":
+                file.write(line + "\n")
+                file.write("010001000000000\n")
+            else:
+                file.write(line + "\n")
+                file.write("010001100000000\n")
+
+    else: #Ej NOT (Dir)
         file.write(line + "\n")
-        file.write("001111000000000\n")
-    else:
-        file.write(line + "\n")
-        file.write("001111100000000\n")
+        file.write("100100000000000" + "\n")
+
 
 def INC(list, file):   #SHR -> ins basicas
     if list[1] == "B":
@@ -502,7 +569,7 @@ def JOV(list, file):
     file.write(line + "\n")
     file.write(("1011011" + binary + "\n"))
 
-entry = open("xor.txt", "r")
+entry = open("shr.txt", "r")
 salida = open("salida.out", "w")
 entrada = entry.readlines()
 
@@ -541,7 +608,7 @@ while i <lenfile:
     elif RealLine[0] == "SHL":     
         SHL(RealLine, salida)         
     elif RealLine[0] == "SHR":     
-        SHL(RealLine, salida)         
+        SHR(RealLine, salida)         
     elif RealLine[0] == "INC":     
         INC(RealLine, salida)
     elif RealLine[0] == "JMP":     

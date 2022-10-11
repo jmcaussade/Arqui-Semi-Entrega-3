@@ -1,0 +1,7 @@
+SHL A,A
+SHL A,B
+SHL B,A
+SHL B,B
+SHL (4),A
+SHL (5),B
+SHL (B)
