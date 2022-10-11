@@ -42,8 +42,8 @@ def CleanLine(line):
 
 def ToBinary(number):
     num = bin(number).replace("0b","")
-    print(num)
-    print(type(num))
+    #print(num)
+    #print(type(num))
     i = 0
     while len(num) < 8:
         num = "0" + num
@@ -52,30 +52,81 @@ def ToBinary(number):
 
 
 
-def MOV(list, file):  #MOV -> ins basicas
-    if len(list) > 2:
-        pos1 = list[1].isnumeric()
-        pos2 = list[2].isnumeric()
-        if pos2 == False:
-            if list[1] == "A":
-                file.write(line + "\n")
-                file.write("000000000000000\n")
-            elif list[1] == "B":
-                file.write(line + "\n")
-                file.write("000000100000000\n")
-        elif pos2 == True: #con literal
-            num = int(list[2])
-            print(num)
-            print(" type num" , type(num))
+def MOV(list, file):  #MOV (RealLine) -> ins basicas
+    linea = list1[1].split(",")  
+    if "(" in linea[0]: # #EJ: MOV (Lit),A
+        #print("linea ACA",linea)
+        linea[0] = linea[0].replace("(","")
+        linea[0] = linea[0].replace(")","")
+        #print("linea", linea)
+        #con literal
+        x = linea[0]
+        y = x.isnumeric()
+        if y == True:
+            num = int(linea[0])
             binary = ToBinary(num)
-            if list[1] == "A":
+        else:
+            num = linea[0]
+
+        if linea[1] == "A":
+            file.write(line + "\n")
+            file.write("0100111" + binary + "\n")
+        elif linea[1] == "B":
+            file.write(line + "\n")
+            file.write("01001000" + binary + "\n")
+
+    elif "(" in linea[1] :   #EJ: MOV A,(Lit)
+        #print("Aca2")
+        linea[1] = linea[1].replace("(","")
+        linea[1] = linea[1].replace(")","")
+        x = linea[1]
+        y = x.isnumeric()
+        if y == True:
+            num = int(linea[1])
+            binary = ToBinary(num)
+        else:
+            num = linea[0]
+        print("linea", linea)
+        #print("linea", linea)
+        #con literal
+        if linea[0] == "A":
+            pos1 = linea[1].isnumeric()
+            if pos1 == False: #EJ MOV A,(B)
                 file.write(line + "\n")
-                file.write("0000010" + binary + "\n")
-            elif list[1] == "B":
+                file.write("010010100000000" + "\n")
+            else:
                 file.write(line + "\n")
-                file.write("0000011" + binary + "\n")
-    else:
+                file.write("0100101" + binary + "\n")
+        elif linea[0] == "B":
+            pos1 = linea[1].isnumeric()
+            if pos1 == False: #EJ MOV B,(B)
+                file.write(line + "\n")
+                file.write("010011000000000" + "\n")
+            else:
+                file.write(line + "\n")
+                file.write("0100110" + binary + "\n")
+    else:   # para abajo instrucciones basicas
+        if len(list) > 2:
             pos1 = list[1].isnumeric()
+            pos2 = list[2].isnumeric()
+            if pos2 == False:
+                if list[1] == "A":
+                    file.write(line + "\n")
+                    file.write("000000000000000\n")
+                elif list[1] == "B":
+                    file.write(line + "\n")
+                    file.write("000000100000000\n")
+            elif pos2 == True: #con literal
+                num = int(list[2])
+                binary = ToBinary(num)
+                if list[1] == "A":
+                    file.write(line + "\n")
+                    file.write("0000010" + binary + "\n")
+                elif list[1] == "B":
+                    file.write(line + "\n")
+                    file.write("0000011" + binary + "\n")
+        else:
+                pos1 = list[1].isnumeric()
 
 def ADD(list, file):  #ADD -> ins basicas
     if len(list) > 2:
@@ -249,6 +300,78 @@ def INC(list, file):   #SHR -> ins basicas
         file.write(line + "\n")
         file.write("010010000000000\n")
 
+def JMP(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1010011" + binary + "\n"))
+
+def JEQ(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1010100" + binary + "\n"))
+
+def JNE(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1010101" + binary + "\n"))
+
+def JGT(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1010110" + binary + "\n"))
+
+def JLT(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1010111" + binary + "\n"))
+
+def JGE(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1011000" + binary + "\n"))
+
+def JLE(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1011001" + binary + "\n"))
+
+def JCR(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1011010" + binary + "\n"))
+
+def JOV(list, file):
+    num = int(list[1])
+    #print(num)
+    #print(" type num" , type(num))
+    binary = ToBinary(num)
+    file.write(line + "\n")
+    file.write(("1011011" + binary + "\n"))
+
 entry = open("entrada3.txt", "r")
 salida = open("salida.out", "w")
 entrada = entry.readlines()
@@ -260,10 +383,11 @@ while i <lenfile:
     line = entrada[i].strip() #linea de entrada
     list1 = line.split(" ")
     print(list1)
-    x = CleanLine(list1[1])
+    x = list1[1]
+    #print("list1 " , list1)
     y = len(list1)
     if len(x) > 1:
-        RealLine.append(list1[0])
+        RealLine.append(list1[0]) #MOV
         RealLine.append(x[0]) 
         RealLine.append(x[1])
     else:
@@ -292,6 +416,24 @@ while i <lenfile:
         SHL(RealLine, salida)         
     elif RealLine[0] == "INC":     
         INC(RealLine, salida)
+    elif RealLine[0] == "JMP":     
+        JMP(RealLine, salida)
+    elif RealLine[0] == "JEQ":     
+        JEQ(RealLine, salida)
+    elif RealLine[0] == "JNE":     
+        JNE(RealLine, salida)
+    elif RealLine[0] == "JGT":     
+        JGT(RealLine, salida)
+    elif RealLine[0] == "JLT":     
+        JLT(RealLine, salida)
+    elif RealLine[0] == "JGE":     
+        JGE(RealLine, salida)
+    elif RealLine[0] == "JLE":     
+        JLE(RealLine, salida)
+    elif RealLine[0] == "JCR":     
+        JCR(RealLine, salida)
+    elif RealLine[0] == "JOV":     
+        JOV(RealLine, salida)
        
 
 
