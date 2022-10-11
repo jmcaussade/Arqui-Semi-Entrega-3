@@ -1,0 +1,8 @@
+AND A,B
+AND B,A
+AND A,4
+AND B,5
+AND A,(4)
+AND B,(5)
+AND A,(B)
+AND (4)

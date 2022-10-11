@@ -1,0 +1,8 @@
+ADD A,B
+ADD B,A
+ADD A,4
+ADD B,5
+ADD A,(4)
+ADD B,(5)
+ADD A,(B)
+ADD (4)
