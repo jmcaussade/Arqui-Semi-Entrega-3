@@ -55,28 +55,27 @@ def ToBinary(number):
 def MOV(list, file):  #MOV (RealLine) -> ins basicas
     linea = list1[1].split(",")  
     if "(" in linea[0]: # #EJ: MOV (Lit),A
-        #print("linea ACA",linea)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
-        #print("linea", linea)
-        #con literal
         x = linea[0]
         y = x.isnumeric()
         if y == True:
             num = int(linea[0])
             binary = ToBinary(num)
         else:
-            num = linea[0]
-
-        if linea[1] == "A":
-            file.write(line + "\n")
-            file.write("0100111" + binary + "\n")
-        elif linea[1] == "B":
-            file.write(line + "\n")
-            file.write("01001000" + binary + "\n")
+            pos1 = linea[0].isnumeric()
+            if pos1 == False: # MOV (B),B
+                file.write(line + "\n")
+                file.write("010101100000000" + "\n")
+            else:
+                if linea[1] == "A":
+                    file.write(line + "\n")
+                    file.write("0100111" + binary + "\n")
+                elif linea[1] == "B":
+                    file.write(line + "\n")
+                    file.write("01001000" + binary + "\n")
 
     elif "(" in linea[1] :   #EJ: MOV A,(Lit)
-        #print("Aca2")
         linea[1] = linea[1].replace("(","")
         linea[1] = linea[1].replace(")","")
         x = linea[1]
@@ -86,9 +85,6 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
             binary = ToBinary(num)
         else:
             num = linea[0]
-        print("linea", linea)
-        #print("linea", linea)
-        #con literal
         if linea[0] == "A":
             pos1 = linea[1].isnumeric()
             if pos1 == False: #EJ MOV A,(B)

@@ -28,3 +28,4 @@ MOV B,(5)
 MOV (5),A
 MOV (1),B
 MOV A,(B)
+MOV (B),A
