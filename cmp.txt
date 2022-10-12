@@ -4,3 +4,5 @@ CMP B,5
 CMP A,(#4)
 CMP B,(5)
 CMP A,(B)
+CMP B,A
+CMP A

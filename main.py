@@ -1,6 +1,6 @@
 
 from dataclasses import replace
-
+import re
 
 Expresiones = [
     r'(MOV|ADD|SUB|AND|OR|XOR|CMP)\sA,B$',                                        # A,B
@@ -33,16 +33,16 @@ def revisar(error,expresiones,reg):
                 revisados.append(e_state)
                 c = 2
         if c == 1:
-            malardovic = (f'La expresion {e} de la linea {x} esta mala')
+            Incorrecta = (f'La expresion {e} de la linea {x} esta mala')
             malos.append(1)
-            print(malardovic)
+            print(Incorrecta)
         x += 1
     if len(malos) > 0:
-        return malos
+        return False
     else:
-        return revisados
+        return True
 
-        
+
 def CheckBinary(string):
     if(string.count('0')+string.count('1')==len(string)):
         return True
@@ -796,6 +796,14 @@ entrada = entry.readlines()
 
 lenfile = len(entrada)
 i = 0
+
+ListaMaxima = []
+for r in entrada:
+    r = r.replace("\n","")
+    ListaMaxima.append(r)
+
+Revisar = revisar(ListaMaxima, Expresiones, reg)
+
 while i <lenfile:
     RealLine = []
     line = entrada[i].strip() #linea de entrada
@@ -803,58 +811,61 @@ while i <lenfile:
     x = list1[1]
     #print("list1 " , list1)
     y = len(list1)
-    if len(x) > 1:
-        RealLine.append(list1[0]) #MOV
-        RealLine.append(x[0]) 
-        RealLine.append(x[1])
-    else:
-        RealLine.append(list1[0])
-        RealLine.append(x[0])
-        #print(RealLine)
+    if Revisar == True:
+        if len(x) > 1:
+            RealLine.append(list1[0]) #MOV
+            RealLine.append(x[0]) 
+            RealLine.append(x[1])
+        else:
+            RealLine.append(list1[0])
+            RealLine.append(x[0])
+            #print(RealLine)
 
-    if RealLine[0] == "MOV":
-        MOV(RealLine, salida)
-    elif RealLine[0] == "ADD":
-        ADD(RealLine, salida)
-    elif RealLine[0] == "SUB":
-        SUB(RealLine, salida) 
-    elif RealLine[0] == "AND":
-        AND(RealLine, salida)    
-    elif RealLine[0] == "OR":    
-        OR(RealLine, salida)  
-    elif RealLine[0] == "XOR":     
-        XOR(RealLine, salida)    
-    elif RealLine[0] == "NOT":     
-        NOT(RealLine, salida)       
-    elif RealLine[0] == "SHL":     
-        SHL(RealLine, salida)         
-    elif RealLine[0] == "SHR":     
-        SHR(RealLine, salida)         
-    elif RealLine[0] == "INC":     
-        INC(RealLine, salida)
-    elif RealLine[0] == "RST":     
-        RST(RealLine, salida)
-    elif RealLine[0] == "CMP":     
-        CMP(RealLine, salida)
-    elif RealLine[0] == "JMP":     
-        JMP(RealLine, salida)
-    elif RealLine[0] == "JEQ":     
-        JEQ(RealLine, salida)
-    elif RealLine[0] == "JNE":     
-        JNE(RealLine, salida)
-    elif RealLine[0] == "JGT":     
-        JGT(RealLine, salida)
-    elif RealLine[0] == "JLT":     
-        JLT(RealLine, salida)
-    elif RealLine[0] == "JGE":     
-        JGE(RealLine, salida)
-    elif RealLine[0] == "JLE":     
-        JLE(RealLine, salida)
-    elif RealLine[0] == "JCR":     
-        JCR(RealLine, salida)
-    elif RealLine[0] == "JOV":     
-        JOV(RealLine, salida)
-       
+        if RealLine[0] == "MOV":
+            MOV(RealLine, salida)
+        elif RealLine[0] == "ADD":
+            ADD(RealLine, salida)
+        elif RealLine[0] == "SUB":
+            SUB(RealLine, salida) 
+        elif RealLine[0] == "AND":
+            AND(RealLine, salida)    
+        elif RealLine[0] == "OR":    
+            OR(RealLine, salida)  
+        elif RealLine[0] == "XOR":     
+            XOR(RealLine, salida)    
+        elif RealLine[0] == "NOT":     
+            NOT(RealLine, salida)       
+        elif RealLine[0] == "SHL":     
+            SHL(RealLine, salida)         
+        elif RealLine[0] == "SHR":     
+            SHR(RealLine, salida)         
+        elif RealLine[0] == "INC":     
+            INC(RealLine, salida)
+        elif RealLine[0] == "RST":     
+            RST(RealLine, salida)
+        elif RealLine[0] == "CMP":     
+            CMP(RealLine, salida)
+        elif RealLine[0] == "JMP":     
+            JMP(RealLine, salida)
+        elif RealLine[0] == "JEQ":     
+            JEQ(RealLine, salida)
+        elif RealLine[0] == "JNE":     
+            JNE(RealLine, salida)
+        elif RealLine[0] == "JGT":     
+            JGT(RealLine, salida)
+        elif RealLine[0] == "JLT":     
+            JLT(RealLine, salida)
+        elif RealLine[0] == "JGE":     
+            JGE(RealLine, salida)
+        elif RealLine[0] == "JLE":     
+            JLE(RealLine, salida)
+        elif RealLine[0] == "JCR":     
+            JCR(RealLine, salida)
+        elif RealLine[0] == "JOV":     
+            JOV(RealLine, salida)
+
+    else:
+        pass   
 
 
     i+=1
