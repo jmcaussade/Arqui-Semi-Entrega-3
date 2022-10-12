@@ -36,6 +36,7 @@ def revisar(lista,expresiones):
         if c == True:
             Incorrecta = (f'La sentencia {e} de la linea {x} es incorrecta')
             malos.append(1)
+            print(Incorrecta)
         x += 1
     if len(malos) > 0:
         return False
@@ -94,13 +95,13 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
             num = linea[0]
             binary = ToBinary(num, pos2, pos1, pos3)
             if linea[1] == "A":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("0100111" + binary + "\n")
             elif linea[1] == "B":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("0101000" + binary + "\n")
         else:
-            #file.write(line + "\n")
+            file.write(line + "\n")
             file.write("010101100000000" + "\n")
 
 
@@ -115,17 +116,17 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
             num = linea[1]
             binary = ToBinary(num, pos2, pos1, pos3)
             if linea[0] == "B":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("0100110" + binary + "\n")
             elif linea[0] == "A":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("0100101" + binary + "\n")
         else: 
             if linea[0] == "A":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("010100100000000" + "\n")
             elif linea[0] == "B":
-                #file.write(line + "\n")
+                file.write(line + "\n")
                 file.write("010101000000000" + "\n")
                 
     else:   # para abajo instrucciones basicas
@@ -138,17 +139,17 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
                 num = linea[1]
                 binary = ToBinary(num, pos2, pos1, pos3)
                 if linea[0] == "A":
-                    #file.write(line + "\n")
+                    file.write(line + "\n")
                     file.write("0000010" + binary + "\n")
                 elif linea[0] == "B":
-                    #file.write(line + "\n")
+                    file.write(line + "\n")
                     file.write("0000011" + binary + "\n")
             else:
                 if linea[0] == "A":
-                    #file.write(line + "\n")
+                    file.write(line + "\n")
                     file.write("000000000000000\n")
                 elif linea[0] == "B":
-                    #file.write(line + "\n")
+                    file.write(line + "\n")
                     file.write("000000100000000\n")
     
 def ADD(list, file):  
@@ -525,6 +526,7 @@ def SHL(list, file):
 
 def SHR(list, file):   
     linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
     if len(linea) > 1: #Ej NOT (Dir),A
         if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
@@ -564,6 +566,7 @@ def SHR(list, file):
 
 def INC(list, file):   
     linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
     if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
@@ -586,6 +589,7 @@ def INC(list, file):
             
 def RST(list, file):   
     linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
     if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
@@ -603,7 +607,8 @@ def RST(list, file):
                 file.write("100110000000000" + "\n")
 
 def CMP(list, file):
-    linea = list1[1].split(",") # EJ A,B 
+    linea = list1[1].split(",") # EJ A,B
+    print("linea ", linea) 
     if "(" in linea[1]: #Ej CMP A,(Dir)
         linea[1] = linea[1].replace("(","")
         linea[1] = linea[1].replace(")","")
@@ -644,10 +649,13 @@ def CMP(list, file):
 
 def JMP(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -656,10 +664,13 @@ def JMP(list, file):
 
 def JEQ(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -669,10 +680,13 @@ def JEQ(list, file):
 
 def JNE(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -681,10 +695,13 @@ def JNE(list, file):
 
 def JGT(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -693,10 +710,13 @@ def JGT(list, file):
 
 def JLT(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -705,10 +725,13 @@ def JLT(list, file):
 
 def JGE(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -717,10 +740,13 @@ def JGE(list, file):
 
 def JLE(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -729,10 +755,13 @@ def JLE(list, file):
 
 def JCR(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
@@ -741,10 +770,13 @@ def JCR(list, file):
 
 def JOV(list, file):
     linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
     pos1 = linea.isnumeric()
     pos2 = CheckBinary(linea)
     pos3 = CheckHexa(linea)
     linea = linea.replace("#","")
+    print("pos3",pos3)
+    print("linea",linea)
     if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
         num = linea
         binary = ToBinary(num, pos2, pos1, pos3)
