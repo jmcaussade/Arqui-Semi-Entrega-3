@@ -1,0 +1,6 @@
+CMP A,B
+CMP A,4
+CMP B,5
+CMP A,(4)
+CMP B,(5)
+CMP A,(B)

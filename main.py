@@ -561,26 +561,28 @@ def INC(list, file):
             else:
                 file.write(line + "\n")
                 file.write("100101000000000" + "\n")
-            
     #INC -> ins basicas
     else:
         file.write(line + "\n")
         file.write("010010000000000\n")
-
+            
 def RST(list, file):   
     linea = list1[1].split(",") # EJ A,B
     print("linea ", linea) 
-    linea[0] = linea[0].replace("(","")
-    linea[0] = linea[0].replace(")","")
-    pos1 = linea[0].isnumeric()
-    if pos1 == True: #Ej INC (Dir)
-        num = int(linea[0])
-        binary = ToBinary(num)
-        file.write(line + "\n")
-        file.write("1001011" + binary + "\n")
-    else:
-        file.write(line + "\n")
-        file.write("100110000000000" + "\n")
+    if "(" in linea[0]: # #EJ: ADD A,(Dir)
+            linea[0] = linea[0].replace("(","")
+            linea[0] = linea[0].replace(")","")
+            pos1 = linea[0].isnumeric()
+            pos2 = CheckBinary(linea[0])
+            pos3 = CheckHexa(linea[0])
+            if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
+                num = linea[0]
+                binary = ToBinary(num, pos2, pos1, pos3)
+                file.write(line + "\n")
+                file.write("1001011" + binary + "\n")
+            else:
+                file.write(line + "\n")
+                file.write("100110000000000" + "\n")
 
 def CMP(list, file):
     linea = list1[1].split(",") # EJ A,B
@@ -589,8 +591,42 @@ def CMP(list, file):
         linea[1] = linea[1].replace("(","")
         linea[1] = linea[1].replace(")","")
         pos1 = linea[1].isnumeric()
-        if pos1 == True:
-            pass
+        pos2 = CheckBinary(linea[1])
+        pos3 = CheckHexa(linea[1])
+        if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
+            num = linea[1]
+            binary = ToBinary(num, pos2, pos1, pos3)
+            if linea[0] == "A":
+                file.write(line + "\n")
+                file.write("1010000" + binary + "\n")
+            else:
+                file.write(line + "\n")
+                file.write("1010001" + binary + "\n")
+        else: #CMP A,(B)
+            file.write(line + "\n")
+            file.write("101001000000000" + "\n")
+    else:
+        pos1 = linea[1].isnumeric()
+        pos2 = CheckBinary(linea[1])
+        pos3 = CheckHexa(linea[1])
+        if pos1 == True or pos2 == True or pos3 == True: #Ej CMP A,Lit
+            num = linea[1]
+            binary = ToBinary(num, pos2, pos1, pos3)
+            if linea[0] == "A":
+                file.write(line + "\n")
+                file.write("1001110" + binary + "\n")
+            else:
+                file.write(line + "\n")
+                file.write("1001111" + binary + "\n")
+        else: #CMP A,B
+            file.write(line + "\n")
+            file.write("100110100000000" + "\n")
+
+        
+
+
+        
+        
 
 
 
@@ -666,7 +702,7 @@ def JOV(list, file):
     file.write(line + "\n")
     file.write(("1011011" + binary + "\n"))
 
-entry = open("mov.txt", "r")
+entry = open("cmp.txt", "r")
 salida = open("salida.out", "w")
 entrada = entry.readlines()
 
@@ -710,6 +746,8 @@ while i <lenfile:
         INC(RealLine, salida)
     elif RealLine[0] == "RST":     
         RST(RealLine, salida)
+    elif RealLine[0] == "CMP":     
+        CMP(RealLine, salida)
     elif RealLine[0] == "JMP":     
         JMP(RealLine, salida)
     elif RealLine[0] == "JEQ":     
