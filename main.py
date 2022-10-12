@@ -62,11 +62,15 @@ def ToBinary(number, binary, decimal, hexa):
         return number
     elif hexa == True:
         result = bin(int(number, 16))
+        result = result.replace("b","")
+        """ if len(result)<8:
+            i = 0
+            while len(result)<8:
+                result = result + "0"
+                i+=1 """
         return result
     elif decimal == True:
         num = bin(int(number)).replace("0b","")
-        #print(num)
-        #print(type(num))
         i = 0
         while len(num) < 8:
             num = "0" + num
@@ -81,6 +85,7 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
     if "(" in linea[0]: # #EJ: MOV (Lit),A
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
         pos3 = CheckHexa(linea[0])
@@ -101,6 +106,7 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
     elif "(" in linea[1] :   #EJ: MOV A,(Dir)
         linea[1] = linea[1].replace("(","")
         linea[1] = linea[1].replace(")","")
+        linea[1] = linea[1].replace("#","")
         pos1 = linea[1].isnumeric()
         pos2 = CheckBinary(linea[1])
         pos3 = CheckHexa(linea[1])
@@ -123,6 +129,7 @@ def MOV(list, file):  #MOV (RealLine) -> ins basicas
                 
     else:   # para abajo instrucciones basicas
         if len(linea) > 1:
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -150,6 +157,7 @@ def ADD(list, file):
         if "(" in linea[1]: # #EJ: ADD A,(Dir)
             linea[1] = linea[1].replace("(","")
             linea[1] = linea[1].replace(")","")
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -168,6 +176,7 @@ def ADD(list, file):
 
         else: #XOR -> ins basicas
             if len(linea) > 1:
+                linea[1] = linea[1].replace("#","")
                 pos1 = linea[1].isnumeric()
                 pos2 = CheckBinary(linea[1])
                 pos3 = CheckHexa(linea[1])
@@ -192,6 +201,7 @@ def ADD(list, file):
     else: #Ej ADD (Dir)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         num = linea[0]
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
@@ -207,6 +217,7 @@ def SUB(list, file):
         if "(" in linea[1]: # #EJ: ADD A,(Dir)
             linea[1] = linea[1].replace("(","")
             linea[1] = linea[1].replace(")","")
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -225,6 +236,7 @@ def SUB(list, file):
 
         else: #XOR -> ins basicas
             if len(linea) > 1:
+                linea[1] = linea[1].replace("#","")
                 pos1 = linea[1].isnumeric()
                 pos2 = CheckBinary(linea[1])
                 pos3 = CheckHexa(linea[1])
@@ -249,6 +261,7 @@ def SUB(list, file):
     else: #Ej ADD (Dir)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         num = linea[0]
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
@@ -264,6 +277,7 @@ def AND(list, file):
         if "(" in linea[1]: # #EJ: ADD A,(Dir)
             linea[1] = linea[1].replace("(","")
             linea[1] = linea[1].replace(")","")
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -282,6 +296,7 @@ def AND(list, file):
 
         else: #XOR -> ins basicas
             if len(linea) > 1:
+                linea[1] = linea[1].replace("#","")
                 pos1 = linea[1].isnumeric()
                 pos2 = CheckBinary(linea[1])
                 pos3 = CheckHexa(linea[1])
@@ -306,6 +321,7 @@ def AND(list, file):
     else: #Ej ADD (Dir)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         num = linea[0]
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
@@ -321,6 +337,7 @@ def OR(list, file):
         if "(" in linea[1]: # #EJ: ADD A,(Dir)
             linea[1] = linea[1].replace("(","")
             linea[1] = linea[1].replace(")","")
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -339,6 +356,7 @@ def OR(list, file):
 
         else: #XOR -> ins basicas
             if len(linea) > 1:
+                linea[1] = linea[1].replace("#","")
                 pos1 = linea[1].isnumeric()
                 pos2 = CheckBinary(linea[1])
                 pos3 = CheckHexa(linea[1])
@@ -363,6 +381,7 @@ def OR(list, file):
     else: #Ej ADD (Dir)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         num = linea[0]
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
@@ -378,6 +397,7 @@ def XOR(list, file):
         if "(" in linea[1]: # #EJ: ADD A,(Dir)
             linea[1] = linea[1].replace("(","")
             linea[1] = linea[1].replace(")","")
+            linea[1] = linea[1].replace("#","")
             pos1 = linea[1].isnumeric()
             pos2 = CheckBinary(linea[1])
             pos3 = CheckHexa(linea[1])
@@ -396,6 +416,7 @@ def XOR(list, file):
 
         else: #XOR -> ins basicas
             if len(linea) > 1:
+                linea[1] = linea[1].replace("#","")
                 pos1 = linea[1].isnumeric()
                 pos2 = CheckBinary(linea[1])
                 pos3 = CheckHexa(linea[1])
@@ -420,6 +441,7 @@ def XOR(list, file):
     else: #Ej ADD (Dir)
         linea[0] = linea[0].replace("(","")
         linea[0] = linea[0].replace(")","")
+        linea[0] = linea[0].replace("#","")
         num = linea[0]
         pos1 = linea[0].isnumeric()
         pos2 = CheckBinary(linea[0])
@@ -436,6 +458,7 @@ def NOT(list, file):
         if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
+            linea[0] = linea[0].replace("#","")
             pos1 = linea[0].isnumeric()
             pos2 = CheckBinary(linea[0])
             pos3 = CheckHexa(linea[0])
@@ -474,6 +497,7 @@ def SHL(list, file):
         if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
+            linea[0] = linea[0].replace("#","")
             pos1 = linea[0].isnumeric()
             pos2 = CheckBinary(linea[0])
             pos3 = CheckHexa(linea[0])
@@ -512,6 +536,7 @@ def SHR(list, file):
         if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
+            linea[0] = linea[0].replace("#","")
             pos1 = linea[0].isnumeric()
             pos2 = CheckBinary(linea[0])
             pos3 = CheckHexa(linea[0])
@@ -550,6 +575,7 @@ def INC(list, file):
     if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
+            linea[0] = linea[0].replace("#","")
             pos1 = linea[0].isnumeric()
             pos2 = CheckBinary(linea[0])
             pos3 = CheckHexa(linea[0])
@@ -572,6 +598,7 @@ def RST(list, file):
     if "(" in linea[0]: # #EJ: ADD A,(Dir)
             linea[0] = linea[0].replace("(","")
             linea[0] = linea[0].replace(")","")
+            linea[0] = linea[0].replace("#","")
             pos1 = linea[0].isnumeric()
             pos2 = CheckBinary(linea[0])
             pos3 = CheckHexa(linea[0])
@@ -590,6 +617,7 @@ def CMP(list, file):
     if "(" in linea[1]: #Ej CMP A,(Dir)
         linea[1] = linea[1].replace("(","")
         linea[1] = linea[1].replace(")","")
+        linea[1] = linea[1].replace("#","")
         pos1 = linea[1].isnumeric()
         pos2 = CheckBinary(linea[1])
         pos3 = CheckHexa(linea[1])
@@ -606,6 +634,7 @@ def CMP(list, file):
             file.write(line + "\n")
             file.write("101001000000000" + "\n")
     else:
+        linea[1] = linea[1].replace("#","")
         pos1 = linea[1].isnumeric()
         pos2 = CheckBinary(linea[1])
         pos3 = CheckHexa(linea[1])
@@ -622,19 +651,17 @@ def CMP(list, file):
             file.write(line + "\n")
             file.write("100110100000000" + "\n")
 
-        
-
-
-        
-        
-
-
 
 def JMP(list, file):
-    num = int(list[1])
-    #print(num)
-    #print(" type num" , type(num))
-    binary = ToBinary(num)
+    linea = list1[1] # EJ Dir
+    print("linea Aca", linea)
+    linea = linea.replace("#","")
+    pos1 = linea.isnumeric()
+    pos2 = CheckBinary(linea)
+    pos3 = CheckHexa(linea)
+    if pos1 == True or pos2 == True or pos3 == True: #Ej INC (Dir)
+        num = linea
+        binary = ToBinary(num, pos2, pos1, pos3)
     file.write(line + "\n")
     file.write(("1010011" + binary + "\n"))
 
@@ -702,7 +729,7 @@ def JOV(list, file):
     file.write(line + "\n")
     file.write(("1011011" + binary + "\n"))
 
-entry = open("cmp.txt", "r")
+entry = open("jumps.txt", "r")
 salida = open("salida.out", "w")
 entrada = entry.readlines()
 

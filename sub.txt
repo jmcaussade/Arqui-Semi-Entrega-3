@@ -3,6 +3,6 @@ SUB B,A
 SUB A,4
 SUB B,6
 SUB A,(4)
-SUB B,(5)
+SUB B,(#5)
 SUB A,(B)
 SUB (3)

@@ -2,6 +2,6 @@ NOT A,A
 NOT A,B
 NOT B,A
 NOT B,B
-NOT (4),A
+NOT (#4),A
 NOT (5),B
 NOT (B)

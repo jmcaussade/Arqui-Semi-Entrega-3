@@ -2,7 +2,7 @@ OR A,B
 OR B,A
 OR A,4
 OR B,5
-OR A,(4)
+OR A,(#4)
 OR B,(5)
 OR A,(B)
 OR (4)

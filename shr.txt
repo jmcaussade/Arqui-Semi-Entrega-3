@@ -2,6 +2,6 @@ SHR A,A
 SHR A,B
 SHR B,A
 SHR B,B
-SHR (4),A
+SHR (#4),A
 SHR (5),B
 SHR (B)
