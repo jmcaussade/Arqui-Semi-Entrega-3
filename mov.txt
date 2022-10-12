@@ -1,0 +1,11 @@
+MOV A,B
+MOV B,A
+MOV A,4
+MOV B,5
+MOV A,(4)
+MOV B,(5)
+MOV (4),A
+MOV (5),B
+MOV A,(B)
+MOV B,(B)
+MOV (B),A
